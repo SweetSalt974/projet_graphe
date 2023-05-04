@@ -27,6 +27,7 @@ def show_robot_path(coords):
     pos = dict(zip(range(n), coords))
     nx.draw_networkx_nodes(G, pos, node_color='lightblue')
     nx.draw_networkx_labels(G, pos)
+    nx.draw_networkx_edges(G, pos, width=1.0, edge_color='grey')
     nx.draw_networkx_edges(H, pos, width=2.0, edge_color='black')
     plt.axis('off')
     plt.grid(True)
