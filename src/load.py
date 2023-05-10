@@ -11,7 +11,11 @@ def load(file_name):
 	for line in lines[1:]:
 		if line.startswith("X"):
 			obstacle_coords = []
-			for coord in line.split()[2:]:
+			line = line.replace(" ", "")
+			line = line.replace(",(", ";(")
+			line = line.replace("X:", "")
+			line = line.replace("\n", "")
+			for coord in line.split(";"):
 				obstacle_coords.append(tuple(map(int, coord[1:-1].split(","))))
 			obstacles.append(obstacle_coords)
 		else:
@@ -19,3 +23,5 @@ def load(file_name):
 			points_to_visit.append(point)
 
 	return (robot_pos, points_to_visit, obstacles)
+
+print(load("src/data2.txt"))
