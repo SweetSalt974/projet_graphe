@@ -39,7 +39,7 @@ def iter_path(G):
     start = list(G.nodes())[0]
     nodes = list(G.nodes())[1:]
     for p in it.permutations(nodes):
-        yield [start] + list(p)
+        yield [start] + list(p) + [start]
 
 def tsp_brute_force(G, pos, C):
     min_dist = 10e30

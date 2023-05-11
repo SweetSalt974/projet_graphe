@@ -1,26 +1,53 @@
-def is_passing_through_obstaicle(p1, p2, r1, r2):
-    x1, y1 = p1
-    x2, y2 = p2
-    x_min, y_min = r1
-    x_max, y_max = r2
+def get_rectangle_edges(rectangle):
+    a = (rectangle[0][0], rectangle[0][1])
+    b = (rectangle[1][0], rectangle[0][1])
+    c = (rectangle[0][0], rectangle[1][1])
+    d = (rectangle[1][0], rectangle[1][1])
+    return [(a, b), (a, c), (b, d), (c, d)]
+
+def intersection(segment1, segment2):
+    x1, y1 = segment1[0]
+    x2, y2 = segment1[1]
+    x3, y3 = segment2[0]
+    x4, y4 = segment2[1]
     
-    # Trouver les coordonnées des points d'intersection entre le segment et les côtés du rectangle
-    intersections = []
-    if x_min <= x1 <= x_max and y_min <= y1 <= y_max:
-        intersections.append((x1, y1))
-    if x_min <= x2 <= x_max and y_min <= y2 <= y_max:
-        intersections.append((x2, y2))
-    if y_min <= y1 <= y_max:
-        x = x_min if x1 < x_min else x_max if x1 > x_max else x1
-        intersections.append((x, y1))
-    if y_min <= y2 <= y_max:
-        x = x_min if x2 < x_min else x_max if x2 > x_max else x2
-        intersections.append((x, y2))
+    if (x1, y1) == (x3, y3) and (x2, y2) == (x4, y4):
+        return False
+
+    a1, b1, c1 = y2 - y1, x1 - x2, x2*y1 - x1*y2
+    a2, b2, c2 = y4 - y3, x3 - x4, x4*y3 - x3*y4
     
-    # Vérifier si l'un des points d'intersection est à la fois à l'intérieur du rectangle et sur le segment
-    for x, y in intersections:
-        if x_min < x < x_max and y_min < y < y_max:
-            if (x - x1) * (x2 - x1) + (y - y1) * (y2 - y1) == 0:
-                return True
+    det = a1*b2 - a2*b1
+    if det == 0:
+        # les droites sont parallèles
+        return False
+    x = (b2*c1 - b1*c2) / det
+    y = (a1*c2 - a2*c1) / det
+
+    x = abs(x)
+    y = abs(y)
     
+    if (min(x1, x2) <= x <= max(x1, x2) and
+        min(y1, y2) <= y <= max(y1, y2) and
+        min(x3, x4) <= x <= max(x3, x4) and
+        min(y3, y4) <= y <= max(y3, y4)):
+        # le point d'intersection est à l'intérieur des deux segments
+        if ((x, y) != (x1, y1) and (x, y) != (x2, y2) and
+            (x, y) != (x3, y3) and (x, y) != (x4, y4)):
+            return True
     return False
+
+def is_passing_through_obstacle(p1, p2, rectangle):
+    rectangle_sides = get_rectangle_edges(rectangle)
+    if (p1 == rectangle_sides[0][0] and p2 == rectangle_sides[3][1]) or (p1 == rectangle_sides[0][1] and p2 == rectangle_sides[1][1]):
+        return True
+    for side in get_rectangle_edges(rectangle):
+        if (intersection((p1,p2), side)):
+            return True
+    return False
+
+def is_passing_through_any_obstacle(p1, p2, rectangles):
+    for rectangle in rectangles:
+        if is_passing_through_obstacle(p1, p2, rectangle):
+            return rectangle
+    return None
