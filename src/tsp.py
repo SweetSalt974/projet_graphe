@@ -48,8 +48,20 @@ def tsp_brute_force(G, pos, C):
         length = 0
         length += compute_angle_wait(p, pos, C)
         for (u, v) in zip(p[:-1], p[1:]):
-            length += G.get_edge_data(u, v)["weight"]
+            if (w := G.get_edge_data(u, v)) != None:
+                length += w["weight"]
+            else:
+                length += 10e40
         if length < min_dist:
             ret = p
             min_dist = length
     return ret
+
+def get_edge_from_perm(perm, edge_paths={}):
+    l = []
+    for edge in zip(perm[:-1], perm[1:]):
+        if edge in edge_paths:
+            l += get_edge_from_perm(edge_paths[edge])
+        else:
+            l += [edge]
+    return l

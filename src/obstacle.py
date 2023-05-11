@@ -1,3 +1,7 @@
+from queue import PriorityQueue
+import networkx as nx
+import math
+
 def get_rectangle_edges(rectangle):
     a = (rectangle[0][0], rectangle[0][1])
     b = (rectangle[1][0], rectangle[0][1])
@@ -51,3 +55,36 @@ def is_passing_through_any_obstacle(p1, p2, rectangles):
         if is_passing_through_obstacle(p1, p2, rectangle):
             return rectangle
     return None
+
+def euclidian_distance(a, b):
+    return math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
+
+def astar(start, end, pos, G):
+    queue = PriorityQueue()
+    queue.put((0,start))
+    visited = set()
+    parents = {start: None}
+    costs = {start: 0}
+    while not queue.empty():
+        cost, node = queue.get()
+        if node == end:
+            # Reconstruire le chemin final
+            path = [node]
+            while parents[node] is not None:
+                path.append(parents[node])
+                node = parents[node]
+            path.reverse()
+            return cost, path
+        if node in visited:
+            continue
+        visited.add(node)
+        for neighbor in G.neighbors(node):
+            if neighbor not in visited and (edge := G.get_edge_data(node, neighbor)) != None:
+                distance = edge["weight"]
+                new_cost = costs[node] + distance
+                if neighbor not in costs or new_cost < costs[neighbor]:
+                    costs[neighbor] = new_cost
+                    priority = new_cost + euclidian_distance(pos[neighbor], pos[end])
+                    queue.put((priority, neighbor))
+                    parents[neighbor] = node
+    return math.inf, []

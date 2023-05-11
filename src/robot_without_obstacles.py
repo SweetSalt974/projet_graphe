@@ -1,14 +1,8 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import math
-from tsp import tsp_brute_force
+from tsp import *
 from load import load
-
-def get_edge_from_perm(perm):
-    l = []
-    for edge in zip(perm[:-1], perm[1:]):
-        l += [edge]
-    return l
 
 def show_robot_path(coords, C=0):
     # Créer un graphe complet avec des poids égaux à la distance euclidienne entre les nœuds
@@ -36,6 +30,6 @@ def show_robot_path(coords, C=0):
     plt.show()
 
 if __name__ == "__main__":
-    coords = [(0, 0), (1, 2), (3, 1), (2, 4), (4, 3), (2, 2), (3, 3)]
+    coords = [(0, 0), (1, 2), (3, 1), (2, 4), (3, 3)]
     show_robot_path(load("data.txt")[1], 0)
     show_robot_path(coords, 1)
