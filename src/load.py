@@ -24,4 +24,5 @@ def load(file_name):
 
 	return (robot_pos, points_to_visit, obstacles)
 
-print(load("src/data2.txt"))
+if __name__ == "__main__":
+	print(load("src/data2.txt"))

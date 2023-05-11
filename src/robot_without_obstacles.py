@@ -35,6 +35,7 @@ def show_robot_path(coords, C=0):
     plt.grid(True)
     plt.show()
 
-# Créer une liste de coordonnées de nœuds
-coords = [(0, 0), (1, 2), (3, 1), (2, 4), (4, 3), (2, 2), (3, 3)]
-show_robot_path(load("data.txt")[1], 0)
+if __name__ == "__main__":
+    coords = [(0, 0), (1, 2), (3, 1), (2, 4), (4, 3), (2, 2), (3, 3)]
+    show_robot_path(load("data.txt")[1], 10)
+    show_robot_path(coords, 10)
