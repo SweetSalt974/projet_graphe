@@ -33,9 +33,11 @@ def show_board(coords, rectangles, C=0):
 
     for u, v in edge_to_compute:
         res = astar(u, v, coords_with_obstacle, G)
-        # print(f"To go from {u} to {v}  path is {res[1]} and dist if {res[0]}")
+        print(f"To go from {u} to {v}  path is {res[1]} and dist if {res[0]}")
         edge_paths[(u, v)] = res[1]
         G[u][v]['weight'] = res[0]
+        edge_paths[(v, u)] = res[1][::-1]
+        G[v][u]['weight'] = res[0]
     # G.remove_nodes_from(range(n, n+len(rectangles)*4))
     
     # min_perm = tsp_brute_force(G, coords_with_obstacle, C)
@@ -45,9 +47,13 @@ def show_board(coords, rectangles, C=0):
     # L = nx.Graph()
     # L.add_edges_from(min_edges)
 
+    for node in list(G.nodes())[len(coords):]:
+        G.remove_node(node)
+
     MST = nx.minimum_spanning_tree(G)
 
     DFS_nodes = list(nx.dfs_postorder_nodes(MST))
+    print(DFS_nodes)
 
     L = nx.Graph()
     L.add_edges_from(get_edge_from_perm(DFS_nodes, edge_paths))
