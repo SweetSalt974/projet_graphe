@@ -48,14 +48,33 @@ def tsp_brute_force(G, pos, C):
         length = 0
         length += compute_angle_wait(p, pos, C)
         for (u, v) in zip(p[:-1], p[1:]):
-            if (w := G.get_edge_data(u, v)) != None:
-                length += w["weight"]
-            else:
-                length += 10e40
+            length += G.get_edge_data(u, v)["weight"]
         if length < min_dist:
             ret = p
             min_dist = length
     return ret
+
+def tsp_mst(G, C):
+    MST = nx.minimum_spanning_tree(G)
+    DFS_nodes = list(nx.dfs_postorder_nodes(MST))
+    return tsp_2opt(DFS_nodes, G)
+
+def tsp_2opt(solution, G):
+    n = len(solution)
+    amelioration = True
+    while amelioration:
+        meilleur_gain = 0
+        amelioration = False
+        for i in range(1, n - 2):
+            for j in range(i + 1, n - 1):
+                gain = G[solution[i-1]][solution[j]]["weight"] + G[solution[i]][solution[j+1]]["weight"] - G[solution[i-1]][solution[i]]["weight"] - G[solution[j]][solution[j+1]]["weight"]
+                if gain < meilleur_gain:
+                    # Inversion des sous-tournées entre i et j
+                    solution[i:j+1] = reversed(solution[i:j+1])
+                    meilleur_gain = gain
+                    amelioration = True
+    return solution
+
 
 def get_edge_from_perm(perm, edge_paths={}):
     l = []
