@@ -64,7 +64,7 @@ Pour faire la distinction entre les monde avec et sans obstacles, nous collecton
 on v\'erifie si celui-ci traverse un obstacle.Si c'est le cas, nous augmentons considérablement le poids du chemin.
 Afin de r\'pondre au problème posé, nous utiliserons l'algorithme qui permet de résoudre le problème du voyageur de commerce (TSP - travelling salesman problem) par la fuorce brute. L'id\'ee est d'\'enum\'erer toutes 
 les permutations possibles des positions des d\'echets et de calculer le co\^ut de chaque permutation pour trouver la permutation avec le co\^ut minimal. Par exemple, si nous avons trois d\'echets 1, 2 et 3, nous pourrions \'enum\'erer toutes les six permutations possibles (123, 132, 213, 231, 312, 321) et calculer le co\^ut de chaque permutation pourt trouver la permutation avec le co\^ut minimum
-Cet algorithme garantit le fait de trouver une solution optimale, mais le nombre de permutations cro\^it rapidement avec le nombre de d\'echets \`a ramasser. Par exemple, pour 10 d\'echets, il y a plus de 3,6 permutations possibles. Ainsi, l'algorithme force brute reste inefficace pour les instances de grande taille.
+Cet algorithme garantit le fait de trouver une solution optimale, mais le nombre de permutations cro\^it rapidement avec le nombre de d\'echets \`a ramasser. Par exemple, pour 10 d\'echets, il y a plus de 3,6 millions permutations possibles. Ainsi, l'algorithme force brute reste inefficace pour les instances de grande taille.
 
 
 
