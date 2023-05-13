@@ -48,12 +48,21 @@ def show_robot_path(start, coords, rectangles, C=0):
     for node in list(G.nodes())[len(coords):]:
         G.remove_node(node)
 
-    #Calcul de la solution (avec la 2_opt)
-    opti_perm = tsp_mst(G, C)
+    #Calcul de la solution
+    min_perm = []
+    if len(coords) < 10:
+        print(f"Number of nodes inferior to 10 : Calculating best path")
+        min_perm = tsp_brute_force(G, coords, C)
+    else:
+        print(f"Number of nodes superior to 10 : Calculating optimized path")
+        min_perm = tsp_mst(G, C)
+    min_edges = get_edge_from_perm(min_perm, edge_paths)
+    print(f"Path : {min_perm}")
+    print(f"Time taken : {get_perm_length(min_edges, coords_with_obstacle, C)}")
 
     #Création du graphe solution (pour le dessin)
     L = nx.Graph()
-    L.add_edges_from(get_edge_from_perm(opti_perm, edge_paths))
+    L.add_edges_from(min_edges)
 
     #Dessin obstacle
     fig, ax = plt.subplots()
@@ -74,6 +83,7 @@ def show_robot_path(start, coords, rectangles, C=0):
 
 if __name__ == "__main__":
     coords = [(0, 0), (1, 2), (3, 1), (2, 4), (3, 3), (4, 2), (1, 3)]
-    rect = [[(2,1),(3,2)]]
+    rect = [[(2,1),(3,2)], [(1.5,-5),(1.5,6)]]
     data = load("data2.txt")
-    show_robot_path(data[0], data[1], data[2])
+    show_robot_path(data[0], data[1], data[2], 0)
+    show_robot_path((0,0), coords, rect)

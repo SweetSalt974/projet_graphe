@@ -75,7 +75,6 @@ def tsp_2opt(solution, G):
                     amelioration = True
     return solution
 
-
 def get_edge_from_perm(perm, edge_paths={}):
     l = []
     for edge in zip(perm[:-1], perm[1:]):
@@ -84,3 +83,13 @@ def get_edge_from_perm(perm, edge_paths={}):
         else:
             l += [edge]
     return l
+
+def get_perm_length(edges, pos, C):
+    length = 0
+    current_vec = (0,1)
+    for (u, v) in edges:
+        next_vec = (pos[v][0] - pos[u][0], pos[v][1] - pos[u][1])
+        angle = angle_between_vectors(current_vec, next_vec)
+        length += angle * C + math.sqrt((pos[u][0]-pos[v][0])**2 + (pos[u][1]-pos[v][1])**2)
+        current_vec = next_vec
+    return length
