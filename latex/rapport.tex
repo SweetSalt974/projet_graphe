@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[ruled,vlined]{algorithm2e}
+
+\begin{document}
+
+\section{Traduction du problème en graphe et représentation de ceux-ci}
+
+\section{Nos algorithmes solutions}
+
+Afin de résoudre ce problème de manière optimal nous nous sommes posé la question suivante : Comment trouver le chemin de rammassage optimal ?
+
+Une solution évidente est de calculer tous les chemins possibles et de choisir le plus cour. Si les n dechets sont représenté par une suites sans répétition de nombre entre 1 et n - 1 et la position de départ par le sommet 0, on peut conclure qu'il faut calculer la longueur du chemin parcourus pour toute permutation de l'ensemble [1 ; n].
+
+Ainsi nous définissons les fonctions auxiliaire suivantes : \\
+
+\begin{algorithm}[H]
+  \SetAlgoLined
+  \KwResult{Un tableau contenant toutes les permutations de [1 ; n]}
+  \caption{allPermutations(n)}
+\end{algorithm}
+
+\begin{algorithm}[H]
+    \SetAlgoLined
+    \KwResult{Le temps que le robot prendra pour parcourir la permutation}
+    time = 0\;
+    currentVector = [0;1]\;
+    \For{i from 0 to longueur(permutation) - 1}{
+        time = time + poid(i, i+1)\;
+        newVector = [pos[i][0] - pos[i+1][0] ; pos[i][1] - pos[i+1][1]]\;
+        time = C * angle(currentVector, newVector)\;
+        currentVector = newVector\;
+    }
+    return time\;
+    \caption{permLength()}
+  \end{algorithm}
+
+  \begin{algorithm}[H]
+    \SetAlgoLined
+    \KwResult{Le meilleur chemin pour rammasser les déchets}
+    permutations = allPermutations(n)\;
+    bestPath = []\;
+    minLength = $\infty$ \;
+    \For{i from 0 to longueur(permutations)}
+    {
+        \If{permLength(permutations[i]) $<$ minLength}
+        {
+            minLength = permLength(permutations[i])\;
+            bestPath = permutations[i]\;
+        }
+    }
+    return bestPath\;
+    \caption{bruteForce()}
+  \end{algorithm}
+
+  Cependant, on constate rapidement que cette approche à ses limites. En effet, le nombre de permutation pour un ensemble de taille $n$ est $!n$. La complexité en temps et en mémoire de notre alogrithme est donc de $O(n)$.
+
+  Bien qu'il soit possible de réduire la complexité en espace en fonction de comment l'implémentation est fait dans un language données, en utilisant par exemple, un itérateur en Python, la complexité en temps elle reste inchangé.
+
+  Afin de trouver un autre algorithme, nous nous sommes demandé s'il n'existait pas déjà un problème documenté auquel nous pourrions ramener le notre.
+
+  Et, en effet, il est possible de ramener ce problème du rammassage de dechets au problème connu du marchand de commerce.
+
+  Il existe de nombeurs algorithm permettant de résoudre celui-ci, et nous nous sommes interressé à l'algorithme de Christofides.
+  
+  L'algorithme de Christofides est une donne une approximation de la solution du marchand de commerce.
+
+  Nous avons décidé d'utiliser une variante de celui-ci. En effet, l'algorithme de Christofides consiste à chercher l'arbre couvrant de poid minimum d'un graphe, puis d'effectuer un traitement sur celui-ci.
+
+
+  Cependant, nous allons simplement effectuer un parcours en profondeur de celui-ci, et ajouter les sommets dans l'ordre de ce parcours à notre tourné.
+
+%% Donner l'algo. Normalement il n'est pas nécessaire de décrire les algos de calcul de l'arbre couvrant minimal (Prim ou Kruskal) et de parcours en profondeur, car ils sont détaillé dans le cours.
+
+  Cependant, la solution obtenue n'est pas très satisfaisante et il est possible de très simplment améliorer ce résultat.
+
+%% Basez vous sur le code en python + articles Wikipédia (2-optmisation problème marchand de commerce)
+
+  En effet, dans le parcours obtenue, certaines arrêtes peuvent être croisé, ce qui n'est pas optimal. Ainsi, en décroisant celles-ci, on obtient un bien meilleur résultat.
+
+\end{document}
