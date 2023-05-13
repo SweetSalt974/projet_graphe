@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import math
+import sys
 from tsp import *
 from load import load
 from obstacle import *
@@ -84,6 +85,6 @@ def show_robot_path(start, coords, rectangles, C=0):
 if __name__ == "__main__":
     coords = [(0, 0), (1, 2), (3, 1), (2, 4), (3, 3), (4, 2), (1, 3)]
     rect = [[(2,1),(3,2)], [(1.5,-5),(1.5,6)]]
-    data = load("data2.txt")
+    data = load(sys.argv[1])
     show_robot_path(data[0], data[1], data[2], 0)
     show_robot_path((0,0), coords, rect)
