@@ -119,19 +119,24 @@ Ainsi nous définissons les fonctions auxiliaire suivantes : \\
 
   Et, en effet, il est possible de ramener ce problème du rammassage de dechets au problème connu du marchand de commerce.
 
-  Il existe de nombeurs algorithm permettant de résoudre celui-ci, et nous nous sommes interressé à l'algorithme de Christofides.
+  Il existe de nombreux algorithms permettant de résoudre celui-ci, et nous nous sommes interressé à l'algorithme de Christofides.
   
-  L'algorithme de Christofides est une donne une approximation de la solution du marchand de commerce.
+  L'algorithme de Christofides donne une approximation de la solution du marchand de commerce.
 
-  Nous avons décidé d'utiliser une variante de celui-ci. En effet, l'algorithme de Christofides consiste à chercher l'arbre couvrant de poid minimum d'un graphe, puis d'effectuer un traitement sur celui-ci.
+  Nous avons donc décidé d'utiliser une variante de celui-ci. En effet, l'algorithme de Christofides consiste à chercher l'arbre couvrant de poid minimum d'un graphe, puis d'effectuer un traitement sur celui-ci.
 
 
   Cependant, nous allons simplement effectuer un parcours en profondeur de celui-ci, et ajouter les sommets dans l'ordre de ce parcours à notre tourné.
 
 %% Donner l'algo. Normalement il n'est pas nécessaire de décrire les algos de calcul de l'arbre couvrant minimal (Prim ou Kruskal) et de parcours en profondeur, car ils sont détaillé dans le cours.
 
-  Cependant, la solution obtenue n'est pas très satisfaisante et il est possible de très simplment améliorer ce résultat.
+  Cependant, la solution obtenue n'est pas très satisfaisante et il est possible de très simplment améliorer ce résultat. \\ 
 
+  En effet il existe une optimisation possible pour le problème du marchand de commerce, l'algorithme 2-optimisation.
+
+  Cette algorithme consiste à chercher avec une heuristic une solution initial de chemin et puis pour tout couple de chemin dans cette solution qui se croise de vérifier le poid du chemin. Si en décroissant les chemins ont obtient un meilleur chemin on continue.
+
+  Cette algorithme se comporte en $\theta n^2$ sur la plupart des graphes et donc est plus rapide que l'algorithme brute, par contre il n'assure pas absolument la bonne réponse mais une bonne approximationpour les graphes d'une taille trop importante. 
 %% Basez vous sur le code en python + articles Wikipédia (2-optmisation problème marchand de commerce)
 
   En effet, dans le parcours obtenue, certaines arrêtes peuvent être croisé, ce qui n'est pas optimal. Ainsi, en décroisant celles-ci, on obtient un bien meilleur résultat.
