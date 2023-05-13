@@ -1,7 +1,65 @@
-\documentclass{article}
-\usepackage[ruled,vlined]{algorithm2e}
+\documentclass{report}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\usepackage{graphicx}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
 
+%beginning of report
 \begin{document}
+\begin{titlepage}
+\fancypagestyle{}{}
+\begin{figure}[t]
+    \centerline{\includegraphics[scale=0.4]{Logo.png}}
+    \centering
+	\vspace{1cm}
+    {\huge\bfseries RAMASSAGE DE DECHETS \\}
+    {\huge\bfseries Projet algorithmique des graphes \\}
+	\vspace{2cm}
+	{\Large\itshape Benjamin DAYRES \\ Mohamed Taha SANDI \\ Samuel LANDEAU \\ Thomas COUTAYE \\}
+	\vspace{1cm}
+	{\large DFD\par}
+    {\large DFD\par}
+
+\end{figure}
+\end{titlepage}
+
+\newpage
+
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+
+\newpage
+
+\section{\Large Introduction }
+\subsection{\Large Présentation du projet}
+\hspace{0,5cm} \Large Le projet \`a  r\'ealiser consiste \`a concevoir et programmer des algorithmes de ramassage pour un robot charg\'e de collecter K d\'echets r\'epartis al\'etoirement
+sur une grille carr\'ee de c\^ot\'e N. Le robot en question poss\`ede une vitesse de d\'eplacement constante unitaire et peut changer de direction en tournant sur lui m\^eme, avec un temps de changement
+de direction d\'ependant de l'angle de rotation. Apr\`es avoir ramass\'e tous les d\'echets, le robot devra retourner \`a sa position initiale.
+Le monde pourra \'eventuellement contenir des obstacles ayant une forme rectangulaire. Dans ce cas l\`a, le robot n'aura pas la possibilit\'    e de les traverser et devra chercher un chemin alternatif
+sans obstacles pour atteindre sa destination.
+
+\subsection{\Large Objectif du projet}
+\hspace{0,5cm} \Large Le but du projet est de r\'epondre aux trois questions suivantes : \\
+\hspace{1 cm} 
+\begin{itemize}
+\item Comment pourra-t-on mod\'eliser algorithmiquement les deux mondes o\`u \'evoluera notre robot ?
+\item Quel algorithme nous permettra de resoudre de mani\`ere optimale notre probl\`eme ?
+\item Une fois que nous avons mod\'elis\'e les deux mondes, comment pouvons-nous rendre l'utilisation de nos impl\'ementations facile et accessible à d'autres personnes ?
+\end{itemize}
+
+\newpage
+\section{\Large Mod\'elisation des deux mondes}
+\hspace{0,5 cm} \Large Pour mod\'eliser le monde sans obstacles, on utilisera un graphe complet dont le nombre de vertices est \'egal aux nombre de d\'echets pr\'esents sur la grille plus notre 
+position initiale. Ajoutons \`a cela que chaque ar\^ete de notre graphe portera un poids qui n'est autre que la distance euclidienne entre ses deux extremit\'es.
+\begin{figure}[!h]
+    \centerline{\includegraphics[scale=1]{best_path_arbitrary-1.png}}
+    \caption{Exemple de graphe repr\'esentant un monde sans obstacle} 
+  \end{figure}
+
+
 
 \section{Traduction du problème en graphe et représentation de ceux-ci}
 

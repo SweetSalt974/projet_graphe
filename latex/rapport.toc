@@ -1,0 +1,6 @@
+\contentsline {section}{\numberline {0.1}\Large Introduction }{3}{}%
+\contentsline {subsection}{\numberline {0.1.1}\Large Présentation du projet}{3}{}%
+\contentsline {subsection}{\numberline {0.1.2}\Large Objectif du projet}{3}{}%
+\contentsline {section}{\numberline {0.2}\Large Mod\'elisation des deux mondes}{4}{}%
+\contentsline {section}{\numberline {0.3}Traduction du problème en graphe et représentation de ceux-ci}{5}{}%
+\contentsline {section}{\numberline {0.4}Nos algorithmes solutions}{5}{}%
