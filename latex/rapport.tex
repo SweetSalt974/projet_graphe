@@ -60,8 +60,12 @@ position initiale. Ajoutons \`a cela que chaque ar\^ete de notre graphe portera 
     \centerline{\includegraphics[scale=1]{best_path_arbitrary-1.png}}
     \caption{Exemple de graphe repr\'esentant un monde sans obstacle} 
   \end{figure}
+Pour faire la distinction entre les monde avec et sans obstacles, nous collectons d'abord la liste des obstacles dans le monde avce obstacles. Puis pour chaque chemin possible dans le graphe,
+on v\'erifie si celui-ci traverse un obstacle.Si c'est le cas, nous augmentons considérablement le poids du chemin.
+Afin de r\'pondre au problème posé, nous utiliserons l'algorithme qui permet de résoudre le problème du voyageur de commerce (TSP - travelling salesman problem) par la fuorce brute. L'id\'ee est d'\'enum\'erer toutes 
+les permutations possibles des positions des d\'echets et de calculer le co\^ut de chaque permutation pour trouver la permutation avec le co\^ut minimal. Par exemple, si nous avons trois d\'echets 1, 2 et 3, nous pourrions \'enum\'erer toutes les six permutations possibles (123, 132, 213, 231, 312, 321) et calculer le co\^ut de chaque permutation pourt trouver la permutation avec le co\^ut minimum
+Cet algorithme garantit le fait de trouver une solution optimale, mais le nombre de permutations cro\^it rapidement avec le nombre de d\'echets \`a ramasser. Par exemple, pour 10 d\'echets, il y a plus de 3,6 permutations possibles. Ainsi, l'algorithme force brute reste inefficace pour les instances de grande taille.
 
-Pour faire la différence entre le monde avec et sans obstacle, dans le monde avec obstacle on récupère la liste des obstacles et pour chaque chemin possible dans le graphe, nous verifions si ils passent par un obstacle, alors nous changer le poids du chemin en une grande valeur pour si c'est le cas. Tout ceci fait que les algorithmes pour trouver le chemin optimal sera le même pour les deux.
 
 
 \section{Nos algorithmes solutions}
