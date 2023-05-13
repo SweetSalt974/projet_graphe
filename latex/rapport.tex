@@ -1,4 +1,6 @@
 \documentclass{report}
+
+\usepackage[ruled,vlined]{algorithm2e}
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
 \usepackage{graphicx}
@@ -59,9 +61,8 @@ position initiale. Ajoutons \`a cela que chaque ar\^ete de notre graphe portera 
     \caption{Exemple de graphe repr\'esentant un monde sans obstacle} 
   \end{figure}
 
+Pour faire la différence entre le monde avec et sans obstacle, dans le monde avec obstacle on récupère la liste des obstacles et pour chaque chemin possible dans le graphe, nous verifions si ils passent par un obstacle, alors nous changer le poids du chemin en une grande valeur pour si c'est le cas. Tout ceci fait que les algorithmes pour trouver le chemin optimal sera le même pour les deux.
 
-
-\section{Traduction du problème en graphe et représentation de ceux-ci}
 
 \section{Nos algorithmes solutions}
 
