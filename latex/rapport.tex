@@ -180,14 +180,15 @@ Malheureusement cette méthode est, comme nous l'avions prévu, très limitée l
 considérer, le temps pris par l'algorithme le rend déjà trop peu efficace pour continuer à l'utiliser. Cependant, l'algorithme 2-opt ne rencontre
 aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus grand, comme visible sur la figure \ref{2-opt_dechet}. \\
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{image/Exemple8dechet.png}
 	\includegraphics[scale=0.4]{image/Exmple10dechet.png}
 	\caption{Recherche du chemin - Méthode Brute}
 	\label{tsp_dechet}
 \end{figure}
-\begin{figure}
+
+\begin{figure}[h!]
 	\includegraphics[scale=0.4]{image/Exmple50dechet.png}
 	\includegraphics[scale=0.4]{image/Exemple200dechet.png}
 	\caption{Recherche du chemin - Méthode 2-opt}
@@ -197,14 +198,14 @@ aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus
 Dans un second temps, nous avons voulu tester l'influence du temps de rotation sur les calculs du plus court chemin. Il est intéressant de voir à quel 
 point le chemin s'en retrouve modifié lorsque l'on considère ou non un temps de rotation. Par exemple, sur les figures \ref{tsp_turn_1} et \ref{tsp_turn_2}, il est bien visible que le robot va se mettre à prioriser des trajectoires rectilignes ou presque afin de minimiser son temps de parcours, pouvant complètement modifier le parcours des sommets.
 
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{figs/best_path_arbitrary_slow_turning.pdf}
 	\includegraphics[scale=0.4]{figs/best_path_arbitrary.pdf}
 	\caption{Recherche du chemin - Méthode Brute avec et sans rotation}
 	\label{tsp_turn_1}
 \end{figure}
-\begin{figure}
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{figs/best_path_data1_slow_turning.pdf}
 	\includegraphics[scale=0.4]{figs/best_path_data1.pdf}
@@ -219,7 +220,7 @@ Nous allons maintenant détailler et expliquer les parties sur lesquels chacun a
 \subsection{Algorithmes}
 Benjamin Dayres
 
-Lors de l'exposition du problème, j'ai rapidement remarqué une similitude avec un problème sur lequel j'avais déjà travaillé dans le cadre de mes études : le marchand de commerce.
+Lors de l'exposition du problème, j'ai rapidement remarqué une similitude avec un problème sur lequel j'avais déjà travaillé dans le cadre de mes études : le voyageur de commerce.
 J'ai donc essayé d'utiliser mes connaissances pour transformer celui-ci afin qu'il colle au problème du ramassage de déchet. Les deux principales différences étaient les suivantes : la présence d'obstacle et le temps de rotation.
 Les algorithmes utilisés ont donc été adapté afin de prendre ces deux contraintes en compte, et ainsi répondre, du mieux possible, au problème posé. \newline
 
@@ -227,12 +228,27 @@ Il est à noter un petit regret cependant, même si la gestion du temps de rotat
 elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seule la distance final est impacté par les variations de la valeur C, les chemins resteront les mêmes peu importe celle-ci. 
 Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connaît pas le chemin.
 
+\subsection{Mod\'elisation des deux mondes}
 Mohamed Taha SANDI
 
-Apr\`es ma premi\`ere lecture du sujet, j'ai pens\'e que la repr\'esentation de notre mondre se fera par une matrice d'adjascence de taille $N^2$ avec N la largeur du monde, mais je me suis 
+Apr\`es ma premi\`ere lecture du sujet, j'ai pens\'e que la repr\'esentation de notre monde se fera par une matrice d'adjascence de taille $N^2$ avec N la largeur du monde, mais je me suis 
 vite aper\c{c} que cette approche n'\'etait pas valide vu qu'elle \'etait gourmande en terme de m\'emoire et prenait en consid\'eration des informations inutiles par rapport au probl\`eme pos\`e. En effet, tout le monde peut \^etre reconstruit
 en connaissant seulement la position des d\'echets, de plus l'information la plus importante dans le cadre de notre projet est la distance euclidienne entre ces derniers vu qu'on travaille dans un espace euclidien 
-de dimension deux.
+de dimension deux. C'est pour ces raisons qu'on a d\'ecid\'e de repr\'esenter notre monde par une succession de coordonn\'ees repr\'esentant l'ensemble des d\'echets.
+
+
+\subsection{Lecture des données}
+Samuel LANDEAU
+
+J'ai pour ma part principalement travaillé sur le fait d'apprendre comment traiter un fichier texte passé en paramètre pour le transformer en données
+"lisibles" pour nos algorithmes, afin de pouvoir m'occuper de cette partie du projet. Il était important de bien communiquer avec les autres membres du 
+projet pour transmettre les données dans le bon format (ne pas transmettre des listes à la place de tuples).
+
+\subsection{Exemple et interprétation des données}
+
+Pour moi, j'ai travaillé sur l'environnement de test avec des jeux de données que l'on a pu utilisé pour vérifier les algorithmes.
+J'ai du prendre ou créer les jeux de données, les éditer et interpréter les résultats pour voir si les résultats étaient cohérent.
+
 
 
 \end{document}
