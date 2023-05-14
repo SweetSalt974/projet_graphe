@@ -223,6 +223,16 @@ Lors de l'exposition du problème, j'ai rapidement remarqué une similitude avec
 J'ai donc essayé d'utiliser mes connaissances pour transformer celui-ci afin qu'il colle au problème du ramassage de déchet. Les deux principales différences étaient les suivantes : la présence d'obstacle et le temps de rotation.
 Les algorithmes utilisés ont donc été adapté afin de prendre ces deux contraintes en compte, et ainsi répondre, du mieux possible, au problème posé. \newline
 
-Il est à noter un petit regret cependant, même si la gestion du temps de rotation fonctionne, elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seule la distance final est impacté par les variations de la valeur C, les chemins resteront les mêmes peu importe celle-ci. Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connaît pas le chemin.
+Il est à noter un petit regret cependant, même si la gestion du temps de rotation fonctionne, 
+elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seule la distance final est impacté par les variations de la valeur C, les chemins resteront les mêmes peu importe celle-ci. 
+Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connaît pas le chemin.
+
+Mohamed Taha SANDI
+
+Apr\`es ma premi\`ere lecture du sujet, j'ai pens\'e que la repr\'esentation de notre mondre se fera par une matrice d'adjascence de taille $N^2$ avec N la largeur du monde, mais je me suis 
+vite aper\c{c} que cette approche n'\'etait pas valide vu qu'elle \'etait gourmande en terme de m\'emoire et prenait en consid\'eration des informations inutiles par rapport au probl\`eme pos\`e. En effet, tout le monde peut \^etre reconstruit
+en connaissant seulement la position des d\'echets, de plus l'information la plus importante dans le cadre de notre projet est la distance euclidienne entre ces derniers vu qu'on travaille dans un espace euclidien 
+de dimension deux.
+
 
 \end{document}
