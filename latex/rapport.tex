@@ -1,8 +1,6 @@
-\documentclass{report}
+\documentclass{article}
 
 \usepackage[ruled,vlined]{algorithm2e}
-\setcounter{tocdepth}{4}
-\setcounter{secnumdepth}{4}
 \usepackage{graphicx}
 \usepackage[margin=1.25in]{geometry}
 \usepackage{fancyhdr}
@@ -12,8 +10,7 @@
 %beginning of report
 \begin{document}
 \begin{titlepage}
-\fancypagestyle{}{}
-\begin{figure}[h]
+\begin{figure}[!h]
     \centerline{\includegraphics[scale=0.4]{Logo.png}}
     \centering
 	\vspace{1cm}
@@ -28,33 +25,26 @@
 \end{figure}
 \end{titlepage}
 
-\newpage
 
-\renewcommand{\contentsname}{Table des matières}
-\tableofcontents
-
-\newpage
-
-\section{\Large Introduction }
-\subsection{\Large Présentation du projet}
-\hspace{0,5cm} \Large Le projet \`a  r\'ealiser consiste \`a concevoir et programmer des algorithmes de ramassage pour un robot charg\'e de collecter K d\'echets r\'epartis al\'etoirement
+\section{Introduction }
+\subsection{Présentation du projet}
+\hspace{0,5cm}  Le projet \`a  r\'ealiser consiste \`a concevoir et programmer des algorithmes de ramassage pour un robot charg\'e de collecter K d\'echets r\'epartis al\'etoirement
 sur une grille carr\'ee de c\^ot\'e N. Le robot en question poss\`ede une vitesse de d\'eplacement constante unitaire et peut changer de direction en tournant sur lui m\^eme, avec un temps de changement
 de direction d\'ependant de l'angle de rotation. Apr\`es avoir ramass\'e tous les d\'echets, le robot devra retourner \`a sa position initiale.
-Le monde pourra \'eventuellement contenir des obstacles ayant une forme rectangulaire. Dans ce cas l\`a, le robot n'aura pas la possibilit\'    e de les traverser et devra chercher un chemin alternatif
+Le monde pourra \'eventuellement contenir des obstacles ayant une forme rectangulaire. Dans ce cas l\`a, le robot n'aura pas la possibilit\'e de les traverser et devra chercher un chemin alternatif
 sans obstacles pour atteindre sa destination.
 
-\subsection{\Large Objectif du projet}
-\hspace{0,5cm} \Large Le but du projet est de r\'epondre aux trois questions suivantes : \\
+\subsection{ Objectif du projet}
+\hspace{0,5cm} Le but du projet est de r\'epondre aux trois questions suivantes : \\
 \hspace{1 cm} 
 \begin{itemize}
 \item Comment pourra-t-on mod\'eliser algorithmiquement les deux mondes o\`u \'evoluera notre robot ?
-\item Quel algorithme nous permettra de resoudre de mani\`ere optimale notre probl\`eme ?
-\item Une fois que nous avons mod\'elis\'e les deux mondes, comment pouvons-nous rendre l'utilisation de nos impl\'ementations facile et accessible à d'autres personnes ?
+\item Quel algorithme nous permettra de resoudre de mani\`ere optimale notre probl\`eme, en fonction du nombre de déchet ?
+\item Si jamais il devient impossible de calculer le chemin optimal, existe t'il tout de même un moyen d'en trouver des convenables ?
 \end{itemize}
 
-\newpage
-\section{\Large Mod\'elisation des deux mondes}
-\hspace{0,5 cm} \Large Pour mod\'eliser le monde sans obstacles, on utilisera un graphe complet dont le nombre de sommets est \'egal aux nombre de d\'echets pr\'esents sur la grille plus notre 
+\section{ Mod\'elisation des deux mondes}
+\hspace{0,5 cm}  Pour mod\'eliser le monde sans obstacles, on utilisera un graphe complet dont le nombre de sommets est \'egal aux nombre de d\'echets pr\'esents sur la grille plus notre 
 position initiale. Ajoutons \`a cela que chaque ar\^ete de notre graphe portera un poids qui n'est autre que la distance euclidienne entre ses deux extremit\'es.
 
 \begin{figure}[!h]
@@ -182,6 +172,7 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
     return solution\;
     \caption{tsp\_2opt(solution,G)}
   \end{algorithm}
+
   Ainsi, en combinant les deux algorithme ci-dessus, il est possible de résoudre notre problème du robot ramasseur de déchets de manière satisfaisante même pour un grand nombre de points avec une complexité acceptable de $O(n^2)$
 
 \section {Test et résultats}
@@ -201,4 +192,18 @@ Lors
   \caption{Recherche du chemin - Methode 2-opt}
   \label{2-opt_dechet}
 \end{figure}
+
+\section{Répartition des rôles}
+
+Nous allons maintenans détailler et expliquer les parties sur lesquels chacun a travaillé.
+
+\subsection{Algorithmes}
+Benjamin Dayres
+
+Lors de l'exposition du problème, j'ai rapidement remarqué une simulitude avec un problème su lequel j'avais déjà travaillé dans le cadre de mes études : le marchand de commerce.
+J'ai donc essayé d'utiliser mes connaissance pour tranformer celui-ci afin qu'il colle au problème du rammassage de dechet. Les deux principale différences étaient les suivantes : La présence d'obstacle et le temps de rotation.
+Les algorithmes utilisé on donc été adapté afin de prendre ces deux contraintes en compte, et ainsi répondre, du mieux possible, au problème posé. \newline
+
+Il est à noter un petit regret cependant, même si la gestion du temps de rotation fonctionne, elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seul la distance final est impacté par les variations de la valeur C, les chemins resteront les même peut importe celle-ci. Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connais pas le chemin.
+
 \end{document}
