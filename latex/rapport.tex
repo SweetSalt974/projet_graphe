@@ -180,7 +180,7 @@ Malheureusement cette méthode est, comme nous l'avions prévu, très limitée l
 considérer, le temps pris par l'algorithme le rend déjà trop peu efficace pour continuer à l'utiliser. Cependant, l'algorithme 2-opt ne rencontre
 aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus grand, comme visible sur la figure \ref{2-opt_dechet}. \\
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{image/Exemple8dechet.png}
 	\includegraphics[scale=0.4]{image/Exmple10dechet.png}
@@ -188,7 +188,7 @@ aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus
 	\label{tsp_dechet}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\includegraphics[scale=0.4]{image/Exmple50dechet.png}
 	\includegraphics[scale=0.4]{image/Exemple200dechet.png}
 	\caption{Recherche du chemin - Méthode 2-opt}
@@ -198,14 +198,14 @@ aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus
 Dans un second temps, nous avons voulu tester l'influence du temps de rotation sur les calculs du plus court chemin. Il est intéressant de voir à quel 
 point le chemin s'en retrouve modifié lorsque l'on considère ou non un temps de rotation. Par exemple, sur les figures \ref{tsp_turn_1} et \ref{tsp_turn_2}, il est bien visible que le robot va se mettre à prioriser des trajectoires rectilignes ou presque afin de minimiser son temps de parcours, pouvant complètement modifier le parcours des sommets.
 
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{figs/best_path_arbitrary_slow_turning.pdf}
 	\includegraphics[scale=0.4]{figs/best_path_arbitrary.pdf}
 	\caption{Recherche du chemin - Méthode Brute avec et sans rotation}
 	\label{tsp_turn_1}
 \end{figure}
-\begin{figure}[H]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.4]{figs/best_path_data1_slow_turning.pdf}
 	\includegraphics[scale=0.4]{figs/best_path_data1.pdf}
@@ -236,7 +236,7 @@ projet pour transmettre les données dans le bon format (ne pas transmettre des 
 \subsection{Exemple et interprétation des données}
 
 Pour moi, j'ai travaillé sur l'environnement de test avec des jeux de données que l'on a pu utilisé pour vérifier les algorithmes.
-J'ai du prendre les jeux de données, les editer et interprété les résultats pour voir si les résultats étaient cohérent.
+J'ai du prendre ou créer les jeux de données, les éditer et interpréter les résultats pour voir si les résultats étaient cohérent.
 
 
 
