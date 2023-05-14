@@ -13,7 +13,7 @@
 \begin{document}
 \begin{titlepage}
 \fancypagestyle{}{}
-\begin{figure}[t]
+\begin{figure}[H]
     \centerline{\includegraphics[scale=0.4]{Logo.png}}
     \centering
 	\vspace{1cm}
@@ -164,12 +164,29 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
             }
           }
        }
-    }\;
+    }
     return solution\;
     \caption{tsp\_2opt(solution,G)}
-  \end{algorithm}[H]
+  \end{algorithm}
 %% Basez vous sur le code en python + articles Wikipédia (2-optmisation problème marchand de commerce)
 
 En effet, dans le parcours obtenu, certaines arrêtes peuvent être croisées, ce qui n'est pas optimal. Ainsi, en décroisant celles-ci, on obtient un bien meilleur résultat.
 
+\section {Test et résultats}
+
+Lors 
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.4]{image/Exemple8dechet.png}
+  \includegraphics[scale=0.4]{image/Exmple10dechet.png}
+  \caption{Recherche du chemin - Methode Brute}
+  \label{tsp_dechet}
+\end{figure}
+\begin{figure}
+  \includegraphics[scale=0.4]{image/Exmple50dechet.png}
+  \includegraphics[scale=0.4]{image/Exemple200dechet.png}
+  \caption{Recherche du chemin - Methode 2-opt}
+  \label{2-opt_dechet}
+\end{figure}
 \end{document}
