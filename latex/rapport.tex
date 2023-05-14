@@ -219,10 +219,17 @@ Nous allons maintenant détailler et expliquer les parties sur lesquels chacun a
 \subsection{Algorithmes}
 Benjamin Dayres
 
-Lors de l'exposition du problème, j'ai rapidement remarqué une similitude avec un problème sur lequel j'avais déjà travaillé dans le cadre de mes études : le marchand de commerce.
+Lors de l'exposition du problème, j'ai rapidement remarqué une similitude avec un problème sur lequel j'avais déjà travaillé dans le cadre de mes études : le voyageur de commerce.
 J'ai donc essayé d'utiliser mes connaissances pour transformer celui-ci afin qu'il colle au problème du ramassage de déchet. Les deux principales différences étaient les suivantes : la présence d'obstacle et le temps de rotation.
 Les algorithmes utilisés ont donc été adapté afin de prendre ces deux contraintes en compte, et ainsi répondre, du mieux possible, au problème posé. \newline
 
-Il est à noter un petit regret cependant, même si la gestion du temps de rotation fonctionne, elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seule la distance final est impacté par les variations de la valeur C, les chemins resteront les mêmes peu importe celle-ci. Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connaît pas le chemin.
+Il est à noter un petit regret cependant, même si la gestion du temps de rotation fonctionne, elle n'est que très peu prise en compte dans le second algorithme présenté (Adaptation de Christofides) : seule la distance finale est impactée par les variations de la valeur C, les chemins resteront les mêmes peu importe celle-ci. Cela peut s'expliquer par l'impossibilité de calculer à l'avance le temps que prendra le robot pour tourner si l'on ne connaît pas le chemin.
+
+\subsection{Lecture des données}
+Samuel LANDEAU
+
+J'ai pour ma part principalement travaillé sur le fait d'apprendre comment traiter un fichier texte passé en paramètre pour le transformer en données
+"lisibles" pour nos algorithmes, afin de pouvoir m'occuper de cette partie du projet. Il était important de bien communiquer avec les autres membres du 
+projet pour transmettre les données dans le bon format (ne pas transmettre des listes à la place de tuples).
 
 \end{document}
