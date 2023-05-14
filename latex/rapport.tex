@@ -54,17 +54,50 @@ sans obstacles pour atteindre sa destination.
 
 \newpage
 \section{\Large Mod\'elisation des deux mondes}
-\hspace{0,5 cm} \Large Pour mod\'eliser le monde sans obstacles, on utilisera un graphe complet dont le nombre de vertices est \'egal aux nombre de d\'echets pr\'esents sur la grille plus notre 
+\hspace{0,5 cm} \Large Pour mod\'eliser le monde sans obstacles, on utilisera un graphe complet dont le nombre de sommets est \'egal aux nombre de d\'echets pr\'esents sur la grille plus notre 
 position initiale. Ajoutons \`a cela que chaque ar\^ete de notre graphe portera un poids qui n'est autre que la distance euclidienne entre ses deux extremit\'es.
+
 \begin{figure}[!h]
     \centerline{\includegraphics[scale=1]{best_path_arbitrary-1.png}}
     \caption{Exemple de graphe repr\'esentant un monde} 
   \end{figure}
-Pour faire la distinction entre les monde avec et sans obstacles, nous collectons d'abord la liste des obstacles dans le monde avce obstacles. Puis pour chaque chemin possible dans le graphe,
-on v\'erifie si celui-ci traverse un obstacle.Si c'est le cas, nous augmentons considérablement le poids du chemin.
-Afin de r\'pondre au problème posé, nous utiliserons l'algorithme qui permet de résoudre le problème du voyageur de commerce (TSP - travelling salesman problem) par la fuorce brute. L'id\'ee est d'\'enum\'erer toutes 
-les permutations possibles des positions des d\'echets et de calculer le co\^ut de chaque permutation pour trouver la permutation avec le co\^ut minimal. Par exemple, si nous avons trois d\'echets 1, 2 et 3, nous pourrions \'enum\'erer toutes les six permutations possibles (123, 132, 213, 231, 312, 321) et calculer le co\^ut de chaque permutation pourt trouver la permutation avec le co\^ut minimum
-Cet algorithme garantit le fait de trouver une solution optimale, mais le nombre de permutations cro\^it rapidement avec le nombre de d\'echets \`a ramasser. Par exemple, pour 10 d\'echets, il y a plus de 3,6 millions permutations possibles. Ainsi, l'algorithme force brute reste inefficace pour les instances de grande taille. \\
+
+Pour faire la distinction entre les monde avec et sans obstacles, nous collectons d'abord la liste des obstacles dans le monde avec obstacles. Puis pour chaque arêtes dans le graphe,
+on v\'erifie si celle-ci traverse un obstacle. Si c'est le cas, nous donnons un poids infini à celle ci et nous stockons dans un tableau cette arête.
+
+Ce tableau est ensuite parcourus, et pour chaque arête (u, v) de celui-ci, nous calculons le plus cours chemin allant de u à v, en incluant la possibilité de passer par les coins des rectangles obstacles. La longueur des chemin calculé devient alors le poids de (u, v).
+
+Une fois le calcul fait, la présence d'obstacle n'a alors plus d'impact sur la complexité et la validité des algorithme de nous allons présenter.
+
+\section{Nos algorithmes solutions}
+
+Afin de résoudre ce problème de manière optimale nous nous sommes posé la question suivante : Comment trouver le chemin de rammassage optimal ?
+
+Une solution évidente est de calculer tous les chemins possibles et de choisir le plus court. Si les $n$ déchets sont représentés par une suite sans répétition de nombre entre 1 et $n - 1$ et la position de départ par le sommet 0, on peut conclure qu'il faut calculer la longueur du chemin parcouru pour toute permutation de l'ensemble $[1 ; n]$.
+Par exemple, si nous avons trois d\'echets 1, 2 et 3, nous pourrions \'enum\'erer toutes les six permutations possibles (123, 132, 213, 231, 312, 321) et calculer le co\^ut de chaque permutation pourt trouver la permutation avec le co\^ut minimum
+
+Ainsi nous définissons les fonctions auxiliaires suivantes : \\
+
+\begin{algorithm}
+  \SetAlgoLined
+  \KwResult{Un tableau contenant toutes les permutations de [1 ; n]}
+  \caption{allPermutations(n)}
+\end{algorithm}
+
+\begin{algorithm}
+    \SetAlgoLined
+    \KwResult{Le temps que le robot prendra pour parcourir la permutation}
+    time = 0\;
+    currentVector = [0;1]\;
+    \For{i from 0 to longueur(permutation) - 1}{
+        time = time + poid(i, i+1)\;
+        newVector = [pos[i][0] - pos[i+1][0] ; pos[i][1] - pos[i+1][1]]\;
+        time = C * angle(currentVector, newVector)\;
+        currentVector = newVector\;
+    }
+    return time\;
+    \caption{permLength()}
+  \end{algorithm}
 
   \begin{algorithm}[H]
     \SetAlgoLined
@@ -84,41 +117,9 @@ Cet algorithme garantit le fait de trouver une solution optimale, mais le nombre
     \caption{bruteForce()}
   \end{algorithm}
 
-  La compl\'exit\'e de cet algorithme est exponentiel de l'ordre $\theta(n!)$
-
-
-
-\section{Nos algorithmes solutions}
-
-Afin de résoudre ce problème de manière optimale nous nous sommes posé la question suivante : Comment trouver le chemin de rammassage optimal ?
-
-Une solution évidente est de calculer tous les chemins possibles et de choisir le plus court. Si les $n$ déchets sont représentés par une suite sans répétition de nombre entre 1 et $n - 1$ et la position de départ par le sommet 0, on peut conclure qu'il faut calculer la longueur du chemin parcouru pour toute permutation de l'ensemble $[1 ; n]$.
-
-Ainsi nous définissons les fonctions auxiliaires suivantes : \\
-
-\begin{algorithm}[H]
-  \SetAlgoLined
-  \KwResult{Un tableau contenant toutes les permutations de [1 ; n]}
-  \caption{allPermutations(n)}
-\end{algorithm}
-
-\begin{algorithm}[H]
-    \SetAlgoLined
-    \KwResult{Le temps que le robot prendra pour parcourir la permutation}
-    time = 0\;
-    currentVector = [0;1]\;
-    \For{i from 0 to longueur(permutation) - 1}{
-        time = time + poid(i, i+1)\;
-        newVector = [pos[i][0] - pos[i+1][0] ; pos[i][1] - pos[i+1][1]]\;
-        time = C * angle(currentVector, newVector)\;
-        currentVector = newVector\;
-    }
-    return time\;
-    \caption{permLength()}
-  \end{algorithm}
-
-
   Cependant, on constate rapidement que cette approche a ses limites. En effet, le nombre de permutation pour un ensemble de taille $n$ est $!n$. La complexité en temps et en mémoire de notre alogrithme est donc de $O(n!)$.
+  Par exemple, pour 10 d\'echets, il y a plus de 3,6 millions permutations possibles. Ainsi, l'algorithme force brute reste inefficace pour les instances de grande taille. \\
+
 
   Bien qu'il soit possible de réduire la complexité en espace en fonction de l'implémentation selon un language donné, en utilisant par exemple un itérateur en Python. La complexité en temps, elle, restera inchangée.
 
@@ -132,12 +133,25 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
 
   Nous avons donc décidé d'utiliser une variante de celui-ci. En effet, l'algorithme de Christofides consiste à chercher l'arbre couvrant de poid minimum d'un graphe, puis d'effectuer un traitement sur celui-ci.
 
-
   Cependant, nous allons simplement effectuer un parcours en profondeur du graphe, et ajouter les sommets dans l'ordre de ce parcours.
+
+  Pour calculer l'arbre couvrant de poid minimal, nous utiliserons l'algorithme de Kruskal.
+
+  Nous supposerons connu ici une fonction \texttt{arbreMin(G)} qui applique l'algorithme de Kruskal sur G et une autre fonction \texttt{parcours(T)} qui effectue un parcours en profondeur de l'arbre T et ajoute les sommets en ordre suffixe dans une liste.
+
+  Ainsi, notre algorithme de résolution du problème de marchand de commerce est le suivante : 
+
+  \begin{algorithm}
+    \SetAlgoLined
+    \KwResult{Tournée optimisé du TSP pour le graphe G}
+    T = arbreMin(G)\;
+    return parcours(T)\;
+    \caption{tsp\_mst(G)}
+  \end{algorithm}
 
 %% Donner l'algo. Normalement il n'est pas nécessaire de décrire les algos de calcul de l'arbre couvrant minimal (Prim ou Kruskal) et de parcours en profondeur, car ils sont détaillé dans le cours.
 
-  Cependant, la solution obtenue par cette méthode n'est pas très satisfaisante et il est possible de très simplment améliorer ce résultat. \\ 
+  La solution obtenue par cette méthode n'est pas très satisfaisante et il est possible de très simplement améliorer ce résultat. \\ 
 
   En effet il existe une optimisation possible pour le problème du marchand de commerce, l'algorithme 2-optimisation.
 
@@ -153,11 +167,11 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
     \While{amelioration == True}{
        meilleur\_gain = 0\;
        amelioration = False\;
-       \For{i in range(1,n-2}{
+       \For{i in range(1,n-2)}{
           \For{j in range (i+1,n-1)}{
             gain = G[solution[i-1]][solution[j]]["weight"] + G[solution[i]][solution[j+1]]["weight"] - G[solution[i-1]][solution[i]]["weight"] - G[solution[j]][solution[j+1]]["weight"]\;
             \If{if gain < meilleur\_gain}{       
-                  # Inversion des sous-tournées entre i et j
+              \# Inversion des sous-tournées entre i et j
               solution[i:j+1] = reversed(solution[i:j+1])\;
               meilleur\_gain = gain\;
               amelioration = True\;
@@ -167,9 +181,7 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
     }\;
     return solution\;
     \caption{tsp\_2opt(solution,G)}
-  \end{algorithm}[H]
-%% Basez vous sur le code en python + articles Wikipédia (2-optmisation problème marchand de commerce)
-
-En effet, dans le parcours obtenu, certaines arrêtes peuvent être croisées, ce qui n'est pas optimal. Ainsi, en décroisant celles-ci, on obtient un bien meilleur résultat.
+  \end{algorithm}
+  Ainsi, en compinant les deux algorithme ci-dessus, il est possible de résoudre notre problème du robot ramasseur de déchets de manière satisfaisante même pour un grand nombre de points avec une complexité acceptable de $O(n^2)$
 
 \end{document}
