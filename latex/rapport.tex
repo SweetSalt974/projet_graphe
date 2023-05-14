@@ -186,19 +186,45 @@ Ainsi nous définissons les fonctions auxiliaires suivantes : \\
 
 \section {Test et résultats}
 
-Lors 
+Après avoir implémentés nos algorithmes, nous avons pu les tester afin de voir les différences entre eux, ainsi que les effets que les variations de
+paramètres pouvait avoir sur les résultats. \\
+
+Nous avons pu en premier lieu remarquer que la méthode brute force permettait d'avoir des résultats très concluant, notamment visible sur la figure
+\ref{tsp_dechet}. Que ce soit avec obstacle ou non, les chemins calculés semblent parfaitement cohérent.
+Malheureusement cette méthode est, comme nous l'avions prévu, très limitée lorsque le nombre de sommets à visiter augmente. Au delà de 10 sommets à
+considérer, le temps pris par l'algorithme le rend déjà trop peu efficace pour continuer à l'utiliser. Cependant, l'algorithme 2-opt ne rencontre
+aucunes difficultés à trouver des chemins pour des nombre de sommets bien plus grand, comme visible sur la figure \ref{2-opt_dechet}. \\
 
 \begin{figure}
-  \centering
-  \includegraphics[scale=0.4]{image/Exemple8dechet.png}
-  \includegraphics[scale=0.4]{image/Exmple10dechet.png}
-  \caption{Recherche du chemin - Methode Brute}
-  \label{tsp_dechet}
+	\centering
+	\includegraphics[scale=0.4]{image/Exemple8dechet.png}
+	\includegraphics[scale=0.4]{image/Exmple10dechet.png}
+	\caption{Recherche du chemin - Méthode Brute}
+	\label{tsp_dechet}
 \end{figure}
 \begin{figure}
-  \includegraphics[scale=0.4]{image/Exmple50dechet.png}
-  \includegraphics[scale=0.4]{image/Exemple200dechet.png}
-  \caption{Recherche du chemin - Methode 2-opt}
-  \label{2-opt_dechet}
+	\includegraphics[scale=0.4]{image/Exmple50dechet.png}
+	\includegraphics[scale=0.4]{image/Exemple200dechet.png}
+	\caption{Recherche du chemin - Méthode 2-opt}
+	\label{2-opt_dechet}
+\end{figure}
+
+Dans un second temps, nous avons voulu tester l'influence du temps de rotation sur les calculs du plus court chemin. Il est intéressant de voir à quel 
+point le chemin s'en retrouve modifié lorsque l'on considère ou non un temps de rotation. Par exemple, sur les figures \ref{tsp_turn_1} et \ref{tsp_turn_2}, il est bien visible que le robot va se mettre à prioriser des trajectoires rectilignes ou presque afin de minimiser son temps de parcours, pouvant complètement modifier le parcours des sommets.
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{figs/best_path_arbitrary_slow_turning.pdf}
+	\includegraphics[scale=0.4]{figs/best_path_arbitrary.pdf}
+	\caption{Recherche du chemin - Méthode Brute avec et sans rotation}
+	\label{tsp_turn_1}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.4]{figs/best_path_data1_slow_turning.pdf}
+	\includegraphics[scale=0.4]{figs/best_path_data1.pdf}
+	\caption{Recherche du chemin - Méthode Brute avec et sans rotation}
+	\label{tsp_turn_2}
 \end{figure}
 \end{document}
+
